@@ -1,0 +1,21 @@
+{
+    "name": "fayouz/laminas-mailer-core",
+    "description": "Fayouz Laminas Mailer Core",
+    "type": "library",
+    "license": "Apache-2.0",
+    "homepage": "http://www.regaz.fr",
+    "keywords": [
+		"doctrine",
+        "helper"
+    ],
+    "require": {
+        "php": "^7.0",
+        "laminas/laminas-mail": "^2.7.6 || ^3.1",
+        "phpmailer/phpmailer": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fayouz\\Laminas\\Mailer\\Core\\": "module/src"
+        }
+    }
+}
