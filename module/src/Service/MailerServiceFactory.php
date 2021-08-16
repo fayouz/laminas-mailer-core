@@ -2,28 +2,27 @@
 
 namespace Fayouz\Laminas\Mailer\Core\Service;
 
+use Fayouz\Laminas\Mailer\Core\Adapter\PhpMailerAdapter;
+use Fayouz\Laminas\Mailer\Core\Options\ModuleOptions;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
-class MailerServiceFactory implements \Laminas\ServiceManager\FactoryInterface
+/**
+ *
+ */
+class MailerServiceFactory implements FactoryInterface
 {
     
     /**
      * @inheritDoc
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): MailerService
     {
-        return new MailerService();
-    }
-    
-    /**
-     * @inheritDoc
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        // TODO: Implement createService() method.
+        /** @var ModuleOptions $options */
+        $options = $container->get(ModuleOptions::class);
+      
+        $adapter = $options->getAdapter();
+        
+        return new MailerService(new $adapter($options->getOptions()));
     }
 }
